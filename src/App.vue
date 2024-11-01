@@ -4,21 +4,23 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">게 시</li>
     </ul>
     <img src="./assets/logo.png" class="logo">
   </div>
 
-  <ContainerSection :게시물='게시물' />
+  <ContainerSection :image="image" :게시물="게시물" :step="step" />
 
   <button @click="more">더 보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
 </template>
 
 <script>
@@ -30,7 +32,9 @@ export default {
   name: 'App',
   data(){
     return {
+      step : 0,
       게시물 : postdata,
+      image : '',
     }
   },
   components: {
@@ -43,6 +47,26 @@ export default {
         console.log(result.data);
         this.게시물.push(result.data);
       });
+    },
+    upload(e){
+      let file = e.target.files;
+      let url = URL.createObjectURL(file[0]);
+      this.image = url;
+      this.step++;
+    },
+    publish(){
+      let 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: "https://picsum.photos/600?random=3",
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
+        filter: "perpetua"  
+      };
+      this.게시물.unshift(내게시물);
+      this.step = 0;
     }
   }
 }
