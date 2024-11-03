@@ -10,9 +10,9 @@
     <img src="./assets/logo.png" class="logo">
   </div>
 
-  <ContainerSection :image="image" :게시물="게시물" :step="step" />
+  <ContainerSection @write="작성한글 = $event" :image="image" :게시물="게시물" :step="step" />
 
-  <button @click="more">더 보기</button>
+  <button v-if="step == 0" @click="more">더 보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -35,6 +35,7 @@ export default {
       step : 0,
       게시물 : postdata,
       image : '',
+      작성한글 : '',
     }
   },
   components: {
@@ -55,14 +56,14 @@ export default {
       this.step++;
     },
     publish(){
-      let 내게시물 = {
+      var 내게시물 = {
         name: "Kim Hyun",
-        userImage: "https://picsum.photos/100?random=3",
-        postImage: "https://picsum.photos/600?random=3",
+        userImage: "https://picsum.photos/100?random=1",
+        postImage: this.image,
         likes: 36,
         date: "May 15",
         liked: false,
-        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
+        content: this.작성한글,
         filter: "perpetua"  
       };
       this.게시물.unshift(내게시물);

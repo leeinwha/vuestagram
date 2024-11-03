@@ -7,29 +7,40 @@
     <div v-if="step == 1">
       <div class="upload-image" :style="`background-image:url(${image})`"></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox :filter="filter" :image="image" v-for="filter in filters" :key="filter">
+          {{ filter }}
+        </FilterBox>
       </div>
     </div>
 
     <div v-if="step == 2">
       <div class="upload-image" :style="`background-image:url(${image})`"></div>
       <div class="write">
-        <textarea class="write-box">글을 작성해 주세요</textarea>
+        <textarea @input="$emit('write', $event.target.value)"
+        class="write-box">글을 작성해 주세요</textarea>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FilterBox from './FilterBox.vue';
 import PostSection from './PostSection.vue';
 
 export default {
+  data(){
+    return {
+      filters : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", 
+                  "earlybird", "gingham", "hudson", "inkwell", "kelvin", 
+                  "lark", "lofi", "maven", "mayfair", "moon", "nashville", 
+                  "perpetua", "reyes", "rise", "slumber", "stinson", "toaster", 
+                  "valencia", "walden", "willow", "xpro2"
+                ],
+    }
+  },
   components : {
-    PostSection
+    PostSection,
+    FilterBox,
   },
   props : {
     게시물 : Array,
