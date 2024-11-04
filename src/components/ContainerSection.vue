@@ -5,7 +5,7 @@
     </div>
     
     <div v-if="step == 1">
-      <div class="upload-image" :style="`background-image:url(${image})`"></div>
+      <div :class="selectfilter" class="upload-image" :style="`background-image:url(${image})`"></div>
       <div class="filters">
         <FilterBox :filter="filter" :image="image" v-for="filter in filters" :key="filter">
           {{ filter }}
@@ -14,7 +14,7 @@
     </div>
 
     <div v-if="step == 2">
-      <div class="upload-image" :style="`background-image:url(${image})`"></div>
+      <div :class="selectfilter" class="upload-image" :style="`background-image:url(${image})`"></div>
       <div class="write">
         <textarea @input="$emit('write', $event.target.value)"
         class="write-box">글을 작성해 주세요</textarea>
@@ -36,7 +36,13 @@ export default {
                   "perpetua", "reyes", "rise", "slumber", "stinson", "toaster", 
                   "valencia", "walden", "willow", "xpro2"
                 ],
+      selectfilter : '',          
     }
+  },
+  mounted(){
+    this.emitter.on('boxclick', (a) => {
+      this.selectfilter = a
+    })
   },
   components : {
     PostSection,

@@ -14,7 +14,7 @@
 
   <button v-if="step == 0" @click="more">더 보기</button>
 
-  <div class="footer">
+  <div v-if="step == 0" class="footer">
     <ul class="footer-button-plus">
       <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
@@ -36,7 +36,13 @@ export default {
       게시물 : postdata,
       image : '',
       작성한글 : '',
+      selectfilter : ''
     }
+  },
+  mounted(){
+    this.emitter.on('boxclick', (a) => {
+      this.selectfilter = a
+    })
   },
   components: {
     ContainerSection
@@ -64,7 +70,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.작성한글,
-        filter: "perpetua"  
+        filter: this.selectfilter  
       };
       this.게시물.unshift(내게시물);
       this.step = 0;
