@@ -12,7 +12,9 @@
 
   <ContainerSection @write="작성한글 = $event" :image="image" :게시물="게시물" :step="step" />
 
-  <button v-if="step == 0" @click="more">더 보기</button>
+  <!-- <button v-if="step == 0" @click="more">더 보기</button> -->
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더 보기</button>
 
   <div v-if="step == 0" class="footer">
     <ul class="footer-button-plus">

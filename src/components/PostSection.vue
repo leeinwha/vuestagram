@@ -4,9 +4,13 @@
       <div class="profile"></div>
       <span class="profile-name">{{ 게시물.name }}</span>
     </div>
-    <div class="post-body" :style="{ backgroundImage : `url(${게시물.postImage})` }"></div>
+    <div 
+      @click="$store.commit('like')"
+      class="post-body" 
+      :style="{ backgroundImage : `url(${게시물.postImage})` }"
+    ></div>
     <div class="post-content">
-      <p>{{ 게시물.likes }} Likes</p>
+      <p>{{ $store.state.likes }} Likes</p>
       <p><strong>{{ 게시물.name }}</strong> {{ 게시물.content }}</p>
       <p class="date">May 15</p>
     </div>
@@ -49,6 +53,7 @@ export default {
     height: 450px;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
   }
   .post-content {
     padding-left: 15px;
